@@ -1,0 +1,236 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: landing
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: landing
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: landing
+    spec:
+      containers:
+        - image: 600005164000.dkr.ecr.us-east-1.amazonaws.com/html-games:landing
+          name: landing-container
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: landing
+  namespace: default
+spec:
+  selector:
+    app: landing
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: game-2048
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: game-2048
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: game-2048
+    spec:
+      containers:
+        - image: 600005164000.dkr.ecr.us-east-1.amazonaws.com/html-games:2048
+          name: 2048-container
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: game-2048
+  namespace: default
+spec:
+  selector:
+    app: game-2048
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: floppybird
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: floppybird
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: floppybird
+    spec:
+      containers:
+        - image: 600005164000.dkr.ecr.us-east-1.amazonaws.com/html-games:floppybird
+          name: floppybird-container
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: floppybird
+  namespace: default
+spec:
+  selector:
+    app: floppybird
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pong
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: pong
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pong
+    spec:
+      containers:
+        - image: 600005164000.dkr.ecr.us-east-1.amazonaws.com/html-games:pong
+          name: pong-container
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pong
+  namespace: default
+spec:
+  selector:
+    app: pong
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tetris
+  namespace: default
+spec:
+  selector:
+    matchLabels:
+      app: tetris
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: tetris
+    spec:
+      containers:
+        - image: 600005164000.dkr.ecr.us-east-1.amazonaws.com/html-games:tetris
+          name: tetris-container
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: tetris
+  namespace: default
+spec:
+  selector:
+    app: tetris
+  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: html-games
+  namespace: default
+  annotations:
+    alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:600005164000:certificate/6f5766b8-51da-45d5-8053-564fd6e930d9
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]' ##################
+    alb.ingress.kubernetes.io/ssl-redirect: "443"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+spec:
+  ingressClassName: alb
+  rules:
+    - http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: landing
+                port:
+                  number: 80
+          - path: /2048
+            pathType: Prefix
+            backend:
+              service:
+                name: game-2048
+                port:
+                  number: 80
+          - path: /floppybird
+            pathType: Prefix
+            backend:
+              service:
+                name: floppybird
+                port:
+                  number: 80
+          - path: /pong
+            pathType: Prefix
+            backend:
+              service:
+                name: pong
+                port:
+                  number: 80
+          - path: /tetris
+            pathType: Prefix
+            backend:
+              service:
+                name: tetris
+                port:
+                  number: 80
