@@ -37,6 +37,7 @@ Key features include:
 1. Run Terraform to create VPC, EKS, IRSA, Kubectl Provider, Cluster Autoscaler, and ACM
 
     $ terraform init
+   
     $ terraform apply
 
 
