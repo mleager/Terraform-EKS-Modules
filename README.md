@@ -3,6 +3,7 @@
 ## Overview
 
 This repository enables you to deploy a webpage hosting four playable HTML games on an AWS EKS Cluster.
+
 Key features include:
 
 - AWS VPC creation
@@ -70,6 +71,7 @@ The Kubectl Provider waits for Terraform to create the required resources first.
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::<Your Account ID>:role/aws-load-balancer-controller-role
 
+
     $ kubectl apply -f manifests/1-lb-controller.yaml
 
 3. Apply IngressClass and IngressClassParams YAML File
@@ -98,7 +100,7 @@ The Kubectl Provider waits for Terraform to create the required resources first.
 1. Uncomment `dns_record` module in ./5-dns.tf
 
 2. Enter ALB DNS Name in "records" attribute
-
+    ```
     module "dns_record" {
     ...
       records = [
@@ -114,4 +116,5 @@ The Kubectl Provider waits for Terraform to create the required resources first.
 3. Apply Terraform to Create CNAME Record
 
     $ terraform init
+   
     $ terraform apply 
