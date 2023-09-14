@@ -57,25 +57,26 @@ The Kubectl Provider waits for Terraform to create the required resources first.
     - [Cert Manager GitHub](https://github.com/cert-manager/cert-manager)
 
     (v1.12.0 - recommened for EKS v1.27)
+   
     $ kubectl apply -f https://github.com/cert-manager/cert-manager/releases/download/v1.12.0/cert-manager.yaml
 
     -- OR --
     
     (v1.5.4 - specified in AWS LB Controller GitHub)
+   
     $ kubectl apply -f manifests/0-cert-manager.yaml
 
-2. Apply AWS LoadBalancer Controller YAML File
+3. Apply AWS LoadBalancer Controller YAML File
     - [AWS Load Balancer Controller GitHub](https://github.com/kubernetes-sigs/aws-load-balancer-controller/blob/main/docs/deploy/installation.md)
 
     * Note: Add the AWS LB Controller's IRSA ARN to the ServiceAccount annotation.
     ```yaml
     annotations:
       eks.amazonaws.com/role-arn: arn:aws:iam::<Your Account ID>:role/aws-load-balancer-controller-role
-
-
+    ```
     $ kubectl apply -f manifests/1-lb-controller.yaml
 
-3. Apply IngressClass and IngressClassParams YAML File
+4. Apply IngressClass and IngressClassParams YAML File
 
     $ kubectl apply -f manifests/2-ingclass.yaml
 
@@ -91,10 +92,10 @@ The Kubectl Provider waits for Terraform to create the required resources first.
     $ kubectl get ing
 
 3. Copy ALB DNS Address
-
+    ```
     NAME ... ... ADDRESS
      ... ... ... k8s-default-htmlgame-94cf9f8cc7-1702364624.us-east-1.elb.amazonaws.com
-
+    ```
 
 ### Create DNS Record for Ingress/ALB (using Terraform)
 
@@ -113,7 +114,7 @@ The Kubectl Provider waits for Terraform to create the required resources first.
         }
       ]
     }
-
+    ```
 3. Apply Terraform to Create CNAME Record
 
     $ terraform init
