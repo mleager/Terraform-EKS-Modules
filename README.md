@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository enables you to deploy a webpage hosting four playable HTML games on an AWS EKS Cluster. 
+This repository enables you to deploy a webpage hosting four playable HTML games on an AWS EKS Cluster.
 Key features include:
 
 - AWS VPC creation
