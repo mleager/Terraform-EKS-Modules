@@ -662,7 +662,6 @@ metadata:
   namespace: kube-system
   annotations:
     eks.amazonaws.com/role-arn: arn:aws:iam::600005164000:role/aws-load-balancer-controller-role
-    ###################################
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -922,7 +921,7 @@ spec:
     spec:
       containers:
         - args:
-            - --cluster-name=my-cluster ####################################
+            - --cluster-name=my-cluster
             - --ingress-class=alb
           image: public.ecr.aws/eks/aws-load-balancer-controller:v2.6.0
           livenessProbe:
