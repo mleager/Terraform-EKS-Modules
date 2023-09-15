@@ -191,7 +191,7 @@ metadata:
   namespace: default
   annotations:
     alb.ingress.kubernetes.io/certificate-arn: arn:aws:acm:us-east-1:600005164000:certificate/6f5766b8-51da-45d5-8053-564fd6e930d9
-    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]' ##################
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}, {"HTTPS":443}]'
     alb.ingress.kubernetes.io/ssl-redirect: "443"
     alb.ingress.kubernetes.io/scheme: internet-facing
 spec:
